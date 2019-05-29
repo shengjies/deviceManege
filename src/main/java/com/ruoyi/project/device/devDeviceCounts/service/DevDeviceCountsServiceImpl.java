@@ -156,6 +156,7 @@ public class DevDeviceCountsServiceImpl implements IDevDeviceCountsService
 									}
 									//进行数据初始
 									devWorkDataMapper.initWorkData(workData.getDataId(),val>0?val-1:val,workData.getIoSign());
+									devDataLog.setDataTotal(val>0?val-1:val);
 								}else{
 									//记录累计产量
 									int total = val - workData.getInitialData();
