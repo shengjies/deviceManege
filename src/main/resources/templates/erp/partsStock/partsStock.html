@@ -38,7 +38,7 @@
 						<i class="fa fa-download"></i> 导出
 				 </a>
 				<a class="btn btn-default" onclick="handleParts()" shiro:hasPermission="erp:stockHandle:list">
-					<i class="fa fa-hand-rock-o"></i> 库存管理
+					<i class="fa fa-hand-rock-o"></i> 库存内部管理
 				</a>
 			</div>
 			<div class="col-sm-12 select-table table-striped">
@@ -97,7 +97,7 @@
 					title : '良品库存',
 					sortable: true,
 					formatter: function (value, row, index) {
-						return '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="editGoodNumber(\'' + row.id + '\')"><i></i>'+ row.goodNumber +'</a> '
+						return '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="handleParStock(\'' + row.partId + '\')"><i></i>'+ row.goodNumber +'</a> '
 					}
 				},
 				{
@@ -105,7 +105,7 @@
 					title : '不良品库存',
 					sortable: true,
 					formatter: function (value, row, index) {
-						return '<a class="btn btn-warning btn-xs" href="javascript:void(0)" onclick="editBadNumber(\'' + row.id + '\')"><i></i>'+ row.badNumber +'</a> '
+						return '<a class="btn btn-warning btn-xs" href="javascript:void(0)" onclick="handleParStock(\'' + row.partId + '\')"><i></i>'+ row.badNumber +'</a> '
 					}
 				},
 				{
@@ -113,7 +113,7 @@
 					title : '报废品库存',
 					sortable: true,
 					formatter: function (value, row, index) {
-                        return '<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="handleScrap(\''+ row.id +'\')"><i></i>'+ row.scrapNumber +'</a> '
+                        return '<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="handleParStock(\''+ row.partId +'\')"><i></i>'+ row.scrapNumber +'</a> '
 					}
 				},
 				{
@@ -146,7 +146,7 @@
          * 打开产品内部处理页面
          */
         function handleParts() {
-            createMenuItem("/erp/stockHandle/handleStock?handleType=2","查看半成品库存管理详情")
+            createMenuItem("/erp/stockHandle/handleStock?handleType=2","查看半成品库存内部调整列表")
         }
         /**
          * 查看半成品出库详情
@@ -176,48 +176,14 @@
         }
 
         /**
-         * 修改半成品良品数量
-         * @param id
+         * 跳转半成品内部库存管理页面
+         * @param id 半成品id
          */
-        function editGoodNumber(id) {
-            var url = prefix +'/editGoodNumber/'+id;
-            $.modal.open("操作产品良品数量",url,800,600)
+        function handleParStock(partId) {
+            var url = '/erp/stockHandle/add?handleType=2&attrId='+ partId;
+            createMenuItem(url,"新增库存管理");
         }
 
-        /**
-         * 修改半成品不良品数量
-         * @param id
-         */
-        function editBadNumber(id) {
-            var url = prefix +'/editBadNumber/'+id;
-            $.modal.open("操作产品不良品数量",url,800,600)
-        }
-
-        /**
-         * 处理报废品
-         * @param id
-         */
-        function handleScrap(id) {
-            $.modal.confirm("确认清理报废品吗？",function () {
-                $.ajax({
-                    type: 'POST',
-                    url: ctx +'erp/partStockHandleDetails/handleScrap',
-                    data:{
-                        id:id
-                    },
-                    dataType: 'json', // 要什么类型的数据
-                    async: false,  //同步请求，
-                    cache: false, // 不使用缓存
-                    success: function (result) {
-                        if (result.code == web_status.SUCCESS) {
-                            $.table.search()
-                        } else {
-                            $.modal.alertError(result.msg);
-                        }
-                    }
-                });
-            })
-        }
     </script>
 </body>
 </html>

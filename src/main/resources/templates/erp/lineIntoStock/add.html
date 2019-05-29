@@ -42,19 +42,6 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-12 control-label" style="margin-top: 10px;font-weight: bold;color: red">入库类型：</label>
-								<div class="col-sm-12">
-									<div class="radio-box">
-										<input type="radio" id="radio1" name="intoType" value="0">
-										<label for="radio1">成品入库</label>
-									</div>
-									<div class="radio-box">
-										<input type="radio" id="radio2" name="intoType" value="2">
-										<label for="radio2">半成品入库</label>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
 								<div style="width: 100%;text-align: center;">
 									<a class="btn btn-primary btn-rounded btn-sm" style="margin-top: 15px"
 									   onclick="submitHandler()"><i class="fa fa-save"></i>&nbsp;生成生产入库单号</a>
@@ -72,6 +59,17 @@
 						<h5>生产入库详情</h5>
 					</div>
 					<div class="ibox-content">
+						<div class="form-group">
+							<span  style="margin-top: 10px;font-weight: bold;color: red">入库类型：</span>
+							<div class="radio-box">
+								<input type="radio" id="radio1" name="intoType" value="0">
+								<label for="radio1">成品入库</label>
+							</div>
+							<div class="radio-box">
+								<input type="radio" id="radio2" name="intoType" value="2">
+								<label for="radio2">半成品入库</label>
+							</div>
+						</div>
 						<table class="table table-striped table-bordered table-hover " id="add-order-table">
 							<thead>
 							<tr>

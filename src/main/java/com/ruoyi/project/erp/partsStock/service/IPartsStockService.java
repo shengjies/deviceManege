@@ -51,4 +51,10 @@ public interface IPartsStockService {
      */
     public int deletePartsStockByIds(String ids);
 
+    /**
+     * 通过半成品id查询库存信息
+     * @param attrId 半成品id
+     * @return 结果
+     */
+    PartsStock selectPartsStockByParId(Integer attrId);
 }

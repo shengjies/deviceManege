@@ -174,13 +174,13 @@ public class DevDeviceCountsServiceImpl implements IDevDeviceCountsService
 								data.setIoName(devIo.getIoName());
 								data.setWorkId(workOrder.getId());
 								data.setDataSign(0);
-								data.setInitialData(val);
+								data.setInitialData(val>0?val-1:val);
 								data.setIoOrder(j);
 								devWorkDataMapper.insertDevWorkData(data);
 							}
 
 							//添加日志
-							if(workData != null && workData.getDataSign() == 0 && workOrder.getOperationStatus() == WorkConstants.OPERATION_STATUS_STARTING && devDataLog.getLineId() != null && devDataLog.getWorkId() != null){
+							if(workData != null  && workOrder.getOperationStatus() == WorkConstants.OPERATION_STATUS_STARTING && devDataLog.getLineId() != null && devDataLog.getWorkId() != null){
 								//查询对应日志上传数据数据
 								DevDataLog log = devDataLogMapper.selectLineWorkDevIo(devDataLog.getLineId(),devDataLog.getWorkId(),devDataLog.getDevId(),devDataLog.getIoId());
 								if(log != null){

@@ -51,4 +51,10 @@ public interface IMaterielStockService {
      */
     public int deleteMaterielStockByIds(String ids);
 
+    /**
+     * 通过物料id查询物料库存信息
+     * @param attrId 物料id
+     * @return 结果
+     */
+    MaterielStock selectMaterielStockByMatId(Integer attrId);
 }

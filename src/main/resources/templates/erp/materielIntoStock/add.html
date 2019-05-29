@@ -147,7 +147,7 @@
                         "data-materiel-model='" + data[i].materielModel + "' data-materiel-name='" + data[i].materielName + "'>" + data[i].materielCode + "</option>")
                 };
                 var textDetail = '<tr>' +
-                    '<td><select name="materielCode" class="selectpicker show-tick form-control"  data-live-search="true" ' +
+					'<td><select name="materielCode" class="selectpicker show-tick form-control"  data-live-search="true" ' +
                     'style="min-width: 150px;" onchange="materielChange(this)" >' + item +
                     '</select></td>' +
                     '<td><input name="materielModel" class="form-control" type="text" readonly="true"></td>' +
@@ -205,7 +205,7 @@
                         $(val).parent("td").siblings("td").find("input[name='supplierCode']").val($(val).find("option:selected").attr("data-materiel-supplierCode"));
                         // 订单详情
                         var purchaseDetails = data.purchaseDetailsList;
-                        item2.push("<option value='-1' >请选择</option>")
+                        item2.push("<option value='-1' >NA</option>")
                         for (var i = 0; i < purchaseDetails.length; i++) {
                             item2.push("<option value='" + purchaseDetails[i].purchaseCode + "' data-purchase-id='" + purchaseDetails[i].purchaseId + "' " +
                                 "data-purchase-number='" + purchaseDetails[i].number + "'" +

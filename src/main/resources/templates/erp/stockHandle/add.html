@@ -53,17 +53,109 @@
 						<table class="table table-striped table-bordered table-hover " id="add-order-table">
 							<thead>
 							<tr>
-								<th>编码</th>
+								<th style="width: 150px;">编码</th>
 								<th>型号</th>
 								<th>良品数量</th>
 								<th>不良品数量</th>
 								<th>报废品数量</th>
-								<th>处理类型</th>
+								<th style="width: 150px">处理类型</th>
 								<th>处理数量</th>
 								<th>操作</th>
 							</tr>
 							</thead>
 							<tbody id="add-order-table-body">
+							<tr th:if="${productStock != null}">
+								<td>
+									<select class="form-control" name="attrCode" id="attrCode" disabled="disabled">
+										<option th:value="${productStock.productCode != null ? productStock.productCode :''}"
+												th:data-attr-name="${productStock.productName != null ? productStock.productName :''}"
+												th:data-attr-id="${productStock.productId != null ? productStock.productId :''}"
+										th:utext="${productStock.productCode != null ? productStock.productCode :''}" selected="selected"></option>
+									</select>
+								</td>
+								<td><input name="attrModel" class="form-control" type="text" readonly="true"
+										   th:value="${productStock.productModel != null ? productStock.productModel :''}">
+								</td>
+								<td><input name="goodNumber" class="form-control" type="text" readonly="true"
+										   th:value="${productStock.goodNumber != null ? productStock.goodNumber :''}"></td>
+								<td><input name="badNumber" class="form-control" type="text" readonly="true"
+										   th:value="${productStock.badNumber != null ? productStock.badNumber :''}"></td>
+								<td><input name="scrapNumber" class="form-control" type="text" readonly="true"
+										   th:value="${productStock.scrapNumber != null ? productStock.scrapNumber :''}"></td>
+								<td>
+									<select name="handleStatus">
+										<option value="-1">请选择</option>
+										<option value="0">不良=>良品</option>
+										<option value="1">不良=>报废</option>
+										<option value="2">良品=>不良</option>
+										<option value="3">良品=>报废</option>
+										<option value="4">报废品清库</option>
+									</select>
+								</td>
+								<td><input name="handleNumber" class="selectpicker show-tick form-control" type="number" value="0"></td>
+								<td><a  class="btn btn-primary btn-rounded btn-sm" onclick="removeRow(this)"><i></i>&nbsp;删除</a></td>
+							</tr>
+							<tr th:if="${materielStock != null}">
+								<td>
+									<select class="form-control" name="attrCode" id="attrCode" disabled="disabled">
+										<option th:value="${materielStock.materielCode != null ? materielStock.materielCode :''}"
+												th:data-attr-name="${materielStock.materielName != null ? materielStock.materielName :''}"
+												th:data-attr-id="${materielStock.materielId != null ? materielStock.materielId :''}"
+												th:utext="${materielStock.materielCode != null ? materielStock.materielCode :''}" selected="selected"></option>
+									</select>
+								</td>
+								<td><input name="attrModel" class="form-control" type="text" readonly="true"
+										   th:value="${materielStock.materielModel != null ? materielStock.materielModel :''}">
+								</td>
+								<td><input name="goodNumber" class="form-control" type="text" readonly="true"
+										   th:value="${materielStock.goodNumber != null ? materielStock.goodNumber :''}"></td>
+								<td><input name="badNumber" class="form-control" type="text" readonly="true"
+										   th:value="${materielStock.badNumber != null ? materielStock.badNumber :''}"></td>
+								<td><input name="scrapNumber" class="form-control" type="text" readonly="true"
+										   th:value="${materielStock.scrapNumber != null ? materielStock.scrapNumber :''}"></td>
+								<td>
+									<select name="handleStatus">
+										<option value="-1">请选择</option>
+										<option value="0">不良=>良品</option>
+										<option value="1">不良=>报废</option>
+										<option value="2">良品=>不良</option>
+										<option value="3">良品=>报废</option>
+										<option value="4">报废品清库</option>
+									</select>
+								</td>
+								<td><input name="handleNumber" class="selectpicker show-tick form-control" type="number" value="0"></td>
+								<td><a  class="btn btn-primary btn-rounded btn-sm" onclick="removeRow(this)"><i></i>&nbsp;删除</a></td>
+							</tr>
+							<tr th:if="${partsStock != null}">
+								<td>
+									<select class="form-control" name="attrCode" id="attrCode" disabled="disabled">
+										<option th:value="${partsStock.partCode != null ? partsStock.partCode :''}"
+												th:data-attr-name="${partsStock.partName != null ? partsStock.partName :''}"
+												th:data-attr-id="${partsStock.partId != null ? partsStock.partId :''}"
+												th:utext="${partsStock.partCode != null ? partsStock.partCode :''}" selected="selected"></option>
+									</select>
+								</td>
+								<td><input name="attrModel" class="form-control" type="text" readonly="true" value="--">
+								</td>
+								<td><input name="goodNumber" class="form-control" type="text" readonly="true"
+										   th:value="${partsStock.goodNumber != null ? partsStock.goodNumber :''}"></td>
+								<td><input name="badNumber" class="form-control" type="text" readonly="true"
+										   th:value="${partsStock.badNumber != null ? partsStock.badNumber :''}"></td>
+								<td><input name="scrapNumber" class="form-control" type="text" readonly="true"
+										   th:value="${partsStock.scrapNumber != null ? partsStock.scrapNumber :''}"></td>
+								<td>
+									<select name="handleStatus">
+										<option value="-1">请选择</option>
+										<option value="0">不良=>良品</option>
+										<option value="1">不良=>报废</option>
+										<option value="2">良品=>不良</option>
+										<option value="3">良品=>报废</option>
+										<option value="4">报废品清库</option>
+									</select>
+								</td>
+								<td><input name="handleNumber" class="selectpicker show-tick form-control" type="number" value="0"></td>
+								<td><a  class="btn btn-primary btn-rounded btn-sm" onclick="removeRow(this)"><i></i>&nbsp;删除</a></td>
+							</tr>
 							</tbody>
 						</table>
 					</div>
@@ -75,10 +167,9 @@
 <div th:include="include::footer"></div>
 <script th:src="@{/ajax/libs/layer/laydate/laydate.js}"></script>
 <script type="text/javascript">
-    $(function () {
-        $("select").select2({
-            width: "100%",
-            placeholder: '请选择'
+	$(function () {
+        $("#add-order-table-body select").select2({
+            width: "150px",
         });
     })
     var start = {
@@ -197,7 +288,7 @@
             '<option value="3">良品=>报废</option>' +
             '<option value="4">报废品清库</option>' +
             '</select></td>' +
-            '<td><input name="handleNumber" class="selectpicker show-tick form-control" type="number" value="0"></td>' +
+            '<td><input name="handleNumber" class="form-control" type="number" value="0"></td>' +
             '<td><a  class="btn btn-primary btn-rounded btn-sm" onclick="removeRow(this)"><i></i>&nbsp;删除</a></td>' +
             '</tr>';
         $("#add-order-table-body").append(textDetail);
@@ -277,6 +368,7 @@
             return;
         }
         data.stockHandleDetailsList = detail;
+        console.log(JSON.stringify(data));
         var config = {
             url: "/erp/stockHandle/add",
             type: "post",

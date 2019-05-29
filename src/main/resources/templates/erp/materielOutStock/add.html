@@ -212,7 +212,7 @@
                         $(val).parent("td").siblings("td").find("input[name='supplierCode']").val($(val).find("option:selected").attr("data-materiel-supplierCode"));
                         // 采购单详情
                         var purchaseDetails = data.purchaseDetailsList;
-                        item2.push("<option value='-1' >请选择</option>")
+                        item2.push("<option value='-1' >NA</option>")
                         for (var i = 0; i < purchaseDetails.length; i++) {
                             item2.push("<option value='" + purchaseDetails[i].purchaseCode + "' data-purchase-id='" + purchaseDetails[i].purchaseId + "' " +
                                 "data-purchase-number='" + purchaseDetails[i].number + "' data-purchase-deliverNum='" + purchaseDetails[i].deliverNum + "'>" + purchaseDetails[i].purchaseCode + "</option>")

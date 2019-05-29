@@ -83,4 +83,13 @@ public class MaterielStockServiceImpl implements IMaterielStockService {
         return materielStockMapper.deleteMaterielStockByIds(Convert.toStrArray(ids));
     }
 
+    /**
+     * 通过物料id查询物料库存信息
+     * @param attrId 物料id
+     * @return 结果
+     */
+    @Override
+    public MaterielStock selectMaterielStockByMatId(Integer attrId) {
+        return materielStockMapper.selectMaterielStockByMaterielId(attrId);
+    }
 }

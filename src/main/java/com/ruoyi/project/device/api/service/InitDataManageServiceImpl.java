@@ -185,7 +185,7 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
             //添加异常信息
             WorkExceptionList exceptionList = new WorkExceptionList();
             exceptionList.setCompanyId(workForm.getCompanyId());
-            exceptionList.setExceStatut(1);
+            exceptionList.setExceStatut(0);
             exceptionList.setExceType(exceptionType.getId());
             exceptionList.setWorkId(workForm.getWorkId());
             exceptionList.setRemark("设备ID："+code+",上报异常");

@@ -83,4 +83,8 @@ public class ProductStockServiceImpl implements IProductStockService {
         return productStockMapper.deleteProductStockByIds(Convert.toStrArray(ids));
     }
 
+    @Override
+    public ProductStock selectProductStockByProId(Integer attrId) {
+        return productStockMapper.selectProductStockByProId(attrId);
+    }
 }

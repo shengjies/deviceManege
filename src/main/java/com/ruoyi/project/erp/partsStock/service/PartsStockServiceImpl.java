@@ -83,4 +83,13 @@ public class PartsStockServiceImpl implements IPartsStockService {
         return partsStockMapper.deletePartsStockByIds(Convert.toStrArray(ids));
     }
 
+    /**
+     * 通过半成品id查询库存信息
+     * @param attrId 半成品id
+     * @return 结果
+     */
+    @Override
+    public PartsStock selectPartsStockByParId(Integer attrId) {
+        return partsStockMapper.selectPartsStockByPartsId(attrId);
+    }
 }

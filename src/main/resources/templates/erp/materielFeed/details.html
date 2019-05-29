@@ -42,8 +42,6 @@
                             <tr>
                                 <th>发料类型</th>
                                 <th>编码信息</th>
-                                <th>库存剩余总数</th>
-                                <th>良品剩余数量</th>
                                 <th>型号信息</th>
                                 <th>名称信息</th>
                                 <th>本次发料数量</th>
@@ -54,8 +52,6 @@
                                 th:each="detail:${materielFeed.materielFeedDetailsList}">
                                 <td th:utext="${detail.feedType==1?'物料':'半成品'}"></td>
                                 <td th:utext="${detail.feedDetailCode}"></td>
-                                <td th:utext="${detail.totalNumber}"></td>
-                                <td th:utext="${detail.goodNubmer}"></td>
                                 <td th:utext="${detail.feedDetailModel}"></td>
                                 <td th:utext="${detail.feedDetailName}"></td>
                                 <td th:utext="${detail.outNumber}"></td>

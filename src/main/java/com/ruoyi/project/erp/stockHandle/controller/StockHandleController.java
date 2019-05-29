@@ -2,8 +2,12 @@ package com.ruoyi.project.erp.stockHandle.controller;
 
 import java.util.List;
 
+import com.ruoyi.common.constant.StockConstants;
 import com.ruoyi.common.utils.security.ShiroUtils;
 import com.ruoyi.project.device.devCompany.service.IDevCompanyService;
+import com.ruoyi.project.erp.materielStock.service.IMaterielStockService;
+import com.ruoyi.project.erp.partsStock.service.IPartsStockService;
+import com.ruoyi.project.erp.productStock.service.IProductStockService;
 import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +40,15 @@ public class StockHandleController extends BaseController
 
 	@Autowired
 	private IDevCompanyService companyService;
+
+	@Autowired
+	private IProductStockService productStockService;
+
+	@Autowired
+	private IMaterielStockService materielStockService;
+
+	@Autowired
+	private IPartsStockService partsStockService;
 	
 	@RequiresPermissions("erp:stockHandle:list")
 	@GetMapping("/handleStock")
@@ -73,12 +86,21 @@ public class StockHandleController extends BaseController
     }
 	
 	/**
-	 * 新增库存内部处理主
+	 * 新增库存内部处理
 	 */
 	@GetMapping("/add")
-	public String add(String handleType,ModelMap mmap)
+	public String add(String handleType,Integer attrId,ModelMap mmap)
 	{
 		mmap.put("handleType",handleType);
+		if ( attrId != null ) {
+		    if (StockConstants.DETAILS_TYPE_PRODUCT.equals(Integer.parseInt(handleType))) { // 产品类型
+		        mmap.put("productStock",productStockService.selectProductStockByProId(attrId));
+		    } else if (StockConstants.DETAILS_TYPE_MATERIEL.equals(Integer.parseInt(handleType))) { // 物料类型
+		        mmap.put("materielStock",materielStockService.selectMaterielStockByMatId(attrId));
+		    } else {
+		    	mmap.put("partsStock",partsStockService.selectPartsStockByParId(attrId));
+			}
+		}
 	    return prefix + "/add";
 	}
 	

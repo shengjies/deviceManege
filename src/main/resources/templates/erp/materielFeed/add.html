@@ -55,20 +55,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-12 control-label"
-                                           style="margin-top: 10px;font-weight: bold;color: red">选择发料类型：</label>
-                                    <div class="col-sm-12">
-                                        <div class="radio-box">
-                                            <input type="radio" id="radio3" name="feedType" value="1">
-                                            <label for="radio3">物料</label>
-                                        </div>
-                                        <div class="radio-box">
-                                            <input type="radio" id="radio4" name="feedType" value="2">
-                                            <label for="radio4">半成品</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <div style="width: 100%;text-align: center;">
                                         <a class="btn btn-primary btn-rounded btn-sm" style="margin-top: 15px"
                                            onclick="submitHandler()"><i class="fa fa-save"></i>&nbsp;生成生产发料单</a>
@@ -86,6 +72,17 @@
                             <h5>发料详情</h5>
                         </div>
                         <div class="ibox-content">
+                            <div class="form-group">
+                                <span style="margin-top: 10px;font-weight: bold;color: red">选择发料类型：</span>
+                                <div class="radio-box">
+                                    <input type="radio" id="radio3" name="feedType" value="1">
+                                    <label for="radio3">物料</label>
+                                </div>
+                                <div class="radio-box">
+                                    <input type="radio" id="radio4" name="feedType" value="2">
+                                    <label for="radio4">半成品</label>
+                                </div>
+                            </div>
                             <table class="table table-striped table-bordered table-hover " id="add-order-table">
                                 <thead>
                                 <tr>

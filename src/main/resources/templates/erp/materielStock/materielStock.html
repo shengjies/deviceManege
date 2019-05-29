@@ -53,7 +53,7 @@
 						<i class="fa fa-download"></i> 导出
 				 </a>
 				<a class="btn btn-default" onclick="handleMat()" shiro:hasPermission="erp:stockHandle:list">
-					<i class="fa fa-hand-rock-o"></i> 库存管理
+					<i class="fa fa-hand-rock-o"></i> 库存内部管理
 				</a>
 			</div>
 			<div class="col-sm-12 select-table table-striped">
@@ -123,7 +123,7 @@
 					title : '良品数',
 					sortable: true,
                     formatter: function (value, row, index) {
-                        return '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="editGoodNumber(\'' + row.id + '\')"><i></i>'+ row.goodNumber +'</a> '
+                        return '<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="handleMatStock(\'' + row.materielId + '\')"><i></i>'+ row.goodNumber +'</a> '
                     }
 				},
 				{
@@ -131,7 +131,7 @@
 					title : '不良品数',
 					sortable: true,
                     formatter: function (value, row, index) {
-                        return '<span class="btn btn-warning btn-xs" href="javascript:void(0)"><i></i>'+ row.badNumber +'</span> '
+                        return '<span class="btn btn-warning btn-xs" href="javascript:void(0)" onclick="handleMatStock(\'' + row.materielId + '\')"><i></i>'+ row.badNumber +'</span> '
                     }
 				},
 				{
@@ -139,12 +139,7 @@
 					title : '报废品数',
 					sortable: true,
                     formatter: function (value, row, index) {
-					    if (row.scrapNumber > 0) {
-                            return '<span class="btn btn-danger btn-xs" href="javascript:void(0)"><i></i>'+ row.scrapNumber +'</span> '
-					    } else {
-                            return '<span class="btn btn-danger btn-xs" href="javascript:void(0)"><i></i>'+ row.scrapNumber +'</span> '
-						}
-
+                        return '<a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="handleMatStock(\'' + row.materielId + '\')"><i></i>'+ row.scrapNumber +'</a> '
                     }
 				},
 				{
@@ -177,7 +172,7 @@
          * 打开产品内部处理页面
          */
         function handleMat() {
-            createMenuItem("/erp/stockHandle/handleStock?handleType=1","查看物料库存管理详情")
+            createMenuItem("/erp/stockHandle/handleStock?handleType=1","查看物料库存内部调整列表")
         }
 
         /**
@@ -209,49 +204,14 @@
         }
 
         /**
-         * 修改物料良品数量
-         * @param id
+         * 跳转物料内部库存管理页面
+         * @param id 半成品id
          */
-        function editGoodNumber(id) {
-            var url = prefix +'/editGoodNumber/'+id;
-            $.modal.open("操作物料良品数量",url,800,600)
+        function handleMatStock(materielId) {
+            var url = '/erp/stockHandle/add?handleType=1&attrId='+ materielId;
+            createMenuItem(url,"新增库存管理");
         }
 
-        // /**
-        //  * 修改物料不良品数量
-        //  * @param id
-        //  */
-        // function editBadNumber(id) {
-        //     var url = prefix +'/editBadNumber/'+id;
-        //     $.modal.open("操作物料不良品数量",url,800,600)
-        // }
-		//
-		//
-        // /**
-        //  * 处理报废品
-        //  * @param id
-        //  */
-        // function handleScrap(id) {
-        //     $.modal.confirm("确认清理报废品吗？",function () {
-        //         $.ajax({
-        //             type: 'POST',
-        //             url: ctx +'erp/materielStockHandleDetails/handleScrap',
-        //             data:{
-        //                 id:id
-        //             },
-        //             dataType: 'json', // 要什么类型的数据
-        //             async: false,  //同步请求，
-        //             cache: false, // 不使用缓存
-        //             success: function (result) {
-        //                 if (result.code == web_status.SUCCESS) {
-        //                     $.table.search();
-        //                 } else if(result.code == web_status.FAIL){
-        //                     $.modal.alertError(result.msg);
-		// 				}
-        //             }
-        //         });
-        //     })
-        // }
     </script>
 </body>
 </html>

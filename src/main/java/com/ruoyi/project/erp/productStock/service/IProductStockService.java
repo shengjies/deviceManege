@@ -51,4 +51,10 @@ public interface IProductStockService {
      */
     public int deleteProductStockByIds(String ids);
 
+    /**
+     * 通过产品id查询产品库存信息
+     * @param attrId 产品id
+     * @return 结果
+     */
+    ProductStock selectProductStockByProId(Integer attrId);
 }
