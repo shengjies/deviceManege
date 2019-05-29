@@ -16,5 +16,9 @@ public class PageTypeConstants {
      * 3、成产平衡
      */
     public static final int PAGE_TYPE_SCPH =3;
+    /**
+     * 4、查看产品文件
+     */
+    public static final int PAGE_TYOE_CPWJ = 4;
 
 }

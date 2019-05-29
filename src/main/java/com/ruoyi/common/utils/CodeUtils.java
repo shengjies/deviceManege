@@ -15,7 +15,7 @@ public class CodeUtils {
      * @return
      */
     public static String getWorkOrderCode(){
-        return "GD"+ ShiroUtils.getCompanyId() +getCode()+getRandom();
+        return "GD"+ ShiroUtils.getCompanyId() +getCode();
     }
 
     /**

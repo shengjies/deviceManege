@@ -11,7 +11,6 @@
    #purchase-detail .ibox-content{
        padding: 4px 20px;
    }
-
 </style>
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <div class="row select-table" id="purchase-detail">
@@ -19,8 +18,10 @@
         <input type="hidden" id="id" name="id" th:value="${purchase != null ? purchase.id:''}">
         <div class="col-sm-8 ">
             <div id='printdivaa' class="my_show">
-                <div style="text-align: center;"><h2 th:utext="${company != null and company.comName != null ? company.comName  :'请设置公司名称'}"></h2></div>
-                <div style="text-align: center;margin-top: 40px;"><h4>采购单</h4></div>
+                <div style="text-align: center;">
+                    <span style="font-weight: 100;font-size: 30px" th:utext="${company != null and company.comName != null ? company.comName  :'请设置公司名称'}"></span>
+                </div>
+                <div style="text-align: center;margin-top: 40px;"><span style="font-weight: 600;font-size: 14px">采购单</span></div>
                 <div style="width: 100%;padding:5px 20px">
                     <div style="margin-bottom: 6px;">采购单号：<span th:utext="${purchase != null?purchase.purchaseCode:''}"></span></div>
                     <div style="float: left;width: 50%;">
@@ -77,7 +78,7 @@
                     </div>
                 <div style="padding: 0px 20px;">
                     <ul>
-                        <li style="margin-bottom: 6px;">1、交货日期及地点：<span th:utext="${#dates.format(purchase.deliverTime,'yyyy-MM-dd HH:mm:sss')}"></span>
+                        <li style="margin-bottom: 6px;">1、交货日期及地点：<span th:utext="${#dates.format(purchase.deliverTime,'yyyy-MM-dd HH:mm:ss')}"></span>
                             交货，送至 <span th:utext="${purchase.deliverAddress}"></span></li>
                         <li style="margin-bottom: 6px;">2、运输费用由<span th:utext="${purchase.cost}"></span></li>
                         <li style="margin-bottom: 6px;">3、税费及付款方式：<span th:utext="${purchase.paymentMethod}"></span></li>
@@ -104,7 +105,8 @@
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 10px;text-align: center">
+            <div style="clear: both"></div>
+            <div style="margin-top: 20px;text-align: center">
                 <a class="btn btn-success btn-xl " href="javascript:void(0)" onclick="uploadPurchase()"><i
                         class="fa fa-download"></i>下载</a>
                 <a class="btn btn-primary btn-xl " href="javascript:void(0)" onclick="dayin()"><i
@@ -165,5 +167,6 @@
         }
     }
 </script>
+</div>
 </body>
 </html>

@@ -202,7 +202,8 @@ public class PageInfoServiceImpl implements IPageInfoService
 				config.setCreateTime(new Date());
 				pageInfoConfigMapper.insertPageInfoConfig(config);
 			}
-		}else if(pageInfo.getConfigs() != null && (pageInfo.getPageType() == PageTypeConstants.PAGE_TYPE_LB || pageInfo.getPageType() == PageTypeConstants.PAGE_TYPE_SCPH) ){//轮播布局 或者 平衡布局
+		}else if(pageInfo.getConfigs() != null && (pageInfo.getPageType() == PageTypeConstants.PAGE_TYPE_LB ||
+				pageInfo.getPageType() == PageTypeConstants.PAGE_TYPE_SCPH || pageInfo.getPageType() == PageTypeConstants.PAGE_TYOE_CPWJ) ){//轮播布局 或者 平衡布局
 			for (PageInfoConfig config : pageInfo.getConfigs()) {
 				config.setPId(pageInfo.getId());
 				config.setCreateTime(new Date());

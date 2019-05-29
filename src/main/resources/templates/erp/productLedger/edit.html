@@ -16,7 +16,7 @@
 			   <input type="hidden" id="id" name="id" th:value="${ledger != null ? ledger.id:''}">
 			   <div id="printdivaa">
 				   <div style="text-align: center">
-					   <h1 th:utext="${company != null?company.comName:''}"></h1>
+					   <span style="font-size:30px;font-weight: 100" th:utext="${company != null?company.comName:''}"></span>
 				   </div>
 				   <div class="list-ul" style="margin-top: 20px;">
 					   <div style="float: left;width: 50%;">
@@ -42,7 +42,7 @@
 				   <div>
 					   <div style="text-align: center;margin-top: 30px;">
 						   <span style="font-size: 26px">对账单</span>
-						   <span style="font-size: 14px;float: right;margin-right: 20px" th:utext="${#dates.format(ledger.beginTime,'yyyy-MM-dd')+' - '+#dates.format(ledger.endTime,'yyyy-MM-dd')}"></span>
+						   <span style="font-size: 14px;float: right;margin-right: 20px" th:utext="${#dates.format(ledger.beginTime,'yyyy-MM-dd')+' 至 '+#dates.format(ledger.endTime,'yyyy-MM-dd')}"></span>
 					   </div>
 					   <div>
 						   <table class="table table-striped table-bordered table-hover " >

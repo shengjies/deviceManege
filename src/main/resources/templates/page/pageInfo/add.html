@@ -31,7 +31,7 @@
 								</div>
 								<div>
 									<div class="text-center">
-										<p><img width="120" id="add_page_back_url" height="120" src="/js//bk.jpg"></p>
+										<p><img width="120" id="add_page_back_url" height="120" src="/js/bk.jpg"></p>
 										<p><a href="javascript:pageBack()">背景图片</a></p>
 									</div>
 								</div>
@@ -184,6 +184,24 @@
 															</li>
 														</ul>
 													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-10" th:if="${lay.layout_type == 4}" th:with="ph =${@page.selectPageInitInfo(0)}">
+										<div th:if="${ph == null}" class="col-sm-6">
+											<h4 style="color: red">请建立相关产线...</h4>
+										</div>
+										<div  class="panel panel-primary" th:if="${ph != null}">
+											<div class="panel-heading">
+												<span>产品文件</span>
+											</div>
+											<div class="panel-body">
+												<div class="form-group"  >
+													<label>生产线</label>
+													<select  class="form-control m-b" name="line">
+														<option th:each="line : ${ph['line']}" th:text="${line.lineName}" th:value="${line.id}"></option>
+													</select>
 												</div>
 											</div>
 										</div>
@@ -359,6 +377,9 @@
 			case "3"://平衡布局
 				data.configs =balance(layout);
 				break;
+			case "4"://平衡布局
+				data.configs =productFile(layout);
+				break;
 		}
 		$.ajax({
 			cache : true,
@@ -478,6 +499,16 @@
 		})
 		c.io = io;
 		g.devIoConfig = JSON.stringify(c);
+		item.push(g);
+		return item;
+	}
+	/**
+	 * 产品文件
+	 */
+	function productFile(layout) {
+		var item =[];
+		var g = {}
+		g.lineId = $("div[data-detail="+layout+"]").find("div[class='col-sm-10']").find("select[name='line']").find("option:selected").val();
 		item.push(g);
 		return item;
 	}
