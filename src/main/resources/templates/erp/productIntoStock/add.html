@@ -241,7 +241,7 @@
             $.modal.alertWarning("请添加产品")
             return;
         }
-        data.details = JSON.stringify(detail);
+        data.productIntoStockDetails = detail;
         var config = {
             url: "/erp/productIntoStock/add",
             type: "post",

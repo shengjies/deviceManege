@@ -3,7 +3,7 @@ package com.ruoyi.project.erp.stockHandleDetails.mapper;
 import com.ruoyi.framework.aspectj.lang.annotation.DataSource;
 import com.ruoyi.framework.aspectj.lang.enums.DataSourceType;
 import com.ruoyi.project.erp.stockHandleDetails.domain.StockHandleDetails;
-import java.util.List;	
+import java.util.List;
 
 /**
  * 内部调整明细 数据层
@@ -66,5 +66,4 @@ public interface StockHandleDetailsMapper
      */
 	@DataSource(value = DataSourceType.ERP)
 	public int deleteStockHandleDetailsByIds(String[] ids);
-	
 }

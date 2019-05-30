@@ -153,6 +153,7 @@ public class MaterielServiceImpl implements IMaterielService {
 
     /**
      * 更新物料库存信息
+     *
      * @param materiel 物料信息
      */
     private void updateMatlStockInfo(Materiel materiel) {
@@ -174,21 +175,23 @@ public class MaterielServiceImpl implements IMaterielService {
     @Override
     public int deleteMaterielByIds(String ids) {
         Integer[] materielIds = Convert.toIntArray(ids);
+        Materiel materiel = null;
         for (Integer materielId : materielIds) {
+            materiel = materielMapper.selectMaterielById(materielId);
             // 校验是否有相关联的物料文件未删除
             List<FileSourceInfo> fileSourceInfos = fileSourceInfoMapper.selectFileSourceInfoBySaveIdAndComId(materielId, ShiroUtils.getCompanyId());
             if (!StringUtils.isEmpty(fileSourceInfos)) {
-                throw new BusinessException("请先删除该物料关联文件");
+                throw new BusinessException("请先删除" + materiel.getMaterielCode() + "的关联文件");
             }
             // 校验是否有相关的供应商关联信息
             List<MaterielSupplier> materielSuppliers = materielSupplierMapper.selectMaterielSupplierListByMaterielId(materielId);
             if (!StringUtils.isEmpty(materielSuppliers)) {
-                throw new BusinessException("请先删除供应商关联");
+                throw new BusinessException("请先删除" + materiel.getMaterielCode() + "的供应商关联");
             }
             // 查询对应物料库存记录
             MaterielStock materielStock = materielStockMapper.selectMaterielStockByMaterielId(materielId);
             if (!StringUtils.isNull(materielStock)) {
-                throw new BusinessException("存在库存记录不允许删除");
+                throw new BusinessException(materiel.getMaterielCode() + "存在库存记录不允许删除");
             }
         }
         return materielMapper.deleteMaterielByIds(Convert.toStrArray(ids));

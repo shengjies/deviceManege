@@ -154,12 +154,11 @@
 				{
 					field : 'ecnStatus',
 					title : 'E/DCN',
-					sortable: true,
 					formatter:function (value, row, index) {
 						if(value == 0){
 							return '<a class="btn btn-default btn-xs ' + ecnFlag + '" href="#" onclick="ecnView(' + row.id + ','+value+')">无</a>';
 						}
-						 return '<a class="btn btn-primary btn-xs ' + ecnFlag + '" href="#" onclick="ecnView(' + row.id + ','+value+')">有</a>';;
+						 return '<a class="btn btn-primary btn-xs ' + ecnFlag + '" href="#" onclick="ecnView(' + row.id + ','+value+')">有</a>';
 					},
 					width:50,
 				},

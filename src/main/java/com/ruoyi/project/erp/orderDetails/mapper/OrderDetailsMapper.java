@@ -4,6 +4,7 @@ import com.ruoyi.framework.aspectj.lang.annotation.DataSource;
 import com.ruoyi.framework.aspectj.lang.enums.DataSourceType;
 import com.ruoyi.project.erp.orderDetails.domain.OrderDetails;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.boot.autoconfigure.validation.ValidatorAdapter;
 
 import java.util.List;
 
@@ -75,21 +76,6 @@ public interface OrderDetailsMapper {
     int deleteOrderDetailsByOrderId(int orderId);
 
     /**
-     * 查询对应客户对应产品的订单明细
-     *
-     * @param companyId   公司id
-     * @param customerId  客户id
-     * @param orderId 订单id
-     * @param productCode 产品编码
-     * @return 结果
-     */
-    @DataSource(value = DataSourceType.ERP)
-    List<OrderDetails> selectOrderDetailsListByCusIdAndProCode(@Param("companyId") Integer companyId,
-                                                               @Param("customerId") Integer customerId,
-                                                               @Param("orderId") Integer orderId,
-                                                               @Param("productCode") String productCode);
-
-    /**
      * 查询订单明细
      * @param companyId 公司id
      * @param orderCode 订单编号
@@ -132,4 +118,45 @@ public interface OrderDetailsMapper {
                                                @Param("orderCode")String orderCode,
                                                @Param("productCode")String productCode);
 
+    /**
+     * 查询订单明细列表
+     * @param companyId 公司id
+     * @param customerId 客户id
+     * @param productId 产品id
+     * @param orderStatus 订单状态
+     * @return 结果
+     */
+    @DataSource(value = DataSourceType.ERP)
+    List<OrderDetails> selectOrderDetailsListByProIdAndCusId(@Param("companyId") Integer companyId,
+                                                             @Param("customerId") Integer customerId,
+                                                             @Param("productId") Integer productId,
+                                                             @Param("orderStatus")Integer orderStatus);
+
+    /**
+     * 查询订单明细一条记录
+     * @param companyId 公司id
+     * @param customerId 客户id
+     * @param productId 产品id
+     * @param orderStatus 订单状态
+     * @return 结果
+     */
+    @DataSource(value = DataSourceType.ERP)
+    OrderDetails selectOrderDetailsListByProIdAndCusIdOne(@Param("companyId") Integer companyId,
+                                                          @Param("customerId") Integer customerId,
+                                                          @Param("productId") Integer productId,
+                                                          @Param("orderStatus")Integer orderStatus);
+
+    /**
+     * 查询订单明细一条记录
+     * @param companyId 公司id
+     * @param customerId 客户id
+     * @param productId 产品id
+     * @param orderStatus 订单状态
+     * @return 结果
+     */
+    @DataSource(value = DataSourceType.ERP)
+    OrderDetails selectOrderDetailsListByNullProInStock(@Param("companyId") Integer companyId,
+                                                        @Param("customerId") Integer customerId,
+                                                        @Param("productId") Integer productId,
+                                                        @Param("orderStatus")Integer orderStatus);
 }

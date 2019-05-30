@@ -1,8 +1,10 @@
 package com.ruoyi.project.erp.productCustomer.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.ruoyi.common.constant.StockConstants;
 import com.ruoyi.common.exception.BusinessException;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.security.ShiroUtils;
@@ -83,12 +85,12 @@ public class ProductCustomerServiceImpl implements IProductCustomerService {
     public int insertProductCustomer(ProductCustomer productCustomer) {
 
         // 判断客户是否存在相同的产品编码
-        int count = productCustomerMapper.checkCustomerCodeUnique(productCustomer.getCustomerId(),productCustomer.getCustomerCode());
+        int count = productCustomerMapper.checkCustomerCodeUnique(productCustomer.getCustomerId(), productCustomer.getCustomerCode());
         if (count > 0) { // 数据库存在记录
             throw new BusinessException("该客户已经存在该产品编码");
         }
         // 判断该产品是否已经录入过
-        int count1 = productCustomerMapper.checkProductUnique(productCustomer.getProductId(),productCustomer.getCustomerId());
+        int count1 = productCustomerMapper.checkProductUnique(productCustomer.getProductId(), productCustomer.getCustomerId());
         if (count1 > 0) { // 数据库存在记录
             throw new BusinessException("该产品已经关联过该客户");
         }
@@ -121,6 +123,7 @@ public class ProductCustomerServiceImpl implements IProductCustomerService {
 
     /**
      * 根据客户编号和产品编号查询对应的客户编号
+     *
      * @param cid 客户编号
      * @param pid 产品编号
      * @return
@@ -131,12 +134,9 @@ public class ProductCustomerServiceImpl implements IProductCustomerService {
         DevProductList product = productMapper.selectDevProductListById(pid);
         // 客户产品关联
         ProductCustomer customerCode = productCustomerMapper.findCustomerCode(cid, pid);
-        // 查询各公司已审核未交付完成的订单信息
-        List<OrderInfo> orderInfoList = orderInfoMapper.selectOrderInfoByCusId(ShiroUtils.getCompanyId(), cid);
-        for (OrderInfo orderInfo : orderInfoList) {
-            List<OrderDetails> orderDetailsLIst = orderDetailsMapper.selectOrderDetailsListByCusIdAndProCode(ShiroUtils.getCompanyId(),cid,orderInfo.getId(),product.getProductCode());
-            customerCode.setOrderDetails(orderDetailsLIst);
-        }
+        // 查询各公司已审核未交付完成的订单明细信息
+        List<OrderDetails> orderDetailsList = orderDetailsMapper.selectOrderDetailsListByProIdAndCusId(ShiroUtils.getCompanyId(), cid, pid, StockConstants.ORDER_STATUS_TWO);
+        customerCode.setOrderDetails(orderDetailsList);
         return customerCode;
     }
 }

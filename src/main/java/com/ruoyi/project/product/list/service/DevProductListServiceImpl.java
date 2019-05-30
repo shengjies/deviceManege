@@ -16,12 +16,19 @@ import com.ruoyi.project.device.devCompany.domain.DevCompany;
 import com.ruoyi.project.device.devCompany.mapper.DevCompanyMapper;
 import com.ruoyi.project.erp.fileSourceInfo.domain.FileSourceInfo;
 import com.ruoyi.project.erp.fileSourceInfo.mapper.FileSourceInfoMapper;
+import com.ruoyi.project.erp.lineIntoStockDetails.mapper.LineIntoStockDetailsMapper;
 import com.ruoyi.project.erp.materiel.domain.Materiel;
 import com.ruoyi.project.erp.materielSupplier.domain.MaterielSupplier;
 import com.ruoyi.project.erp.productCustomer.domain.ProductCustomer;
 import com.ruoyi.project.erp.productCustomer.mapper.ProductCustomerMapper;
+import com.ruoyi.project.erp.productIntoStockDetails.domain.ProductIntoStockDetails;
+import com.ruoyi.project.erp.productIntoStockDetails.mapper.ProductIntoStockDetailsMapper;
+import com.ruoyi.project.erp.productOutStockDetails.domain.ProductOutStockDetails;
+import com.ruoyi.project.erp.productOutStockDetails.mapper.ProductOutStockDetailsMapper;
 import com.ruoyi.project.erp.productStock.domain.ProductStock;
 import com.ruoyi.project.erp.productStock.mapper.ProductStockMapper;
+import com.ruoyi.project.erp.stockHandleDetails.domain.StockHandleDetails;
+import com.ruoyi.project.erp.stockHandleDetails.mapper.StockHandleDetailsMapper;
 import com.ruoyi.project.product.list.domain.DevProductList;
 import com.ruoyi.project.product.list.mapper.DevProductListMapper;
 import com.ruoyi.project.production.devWorkOrder.mapper.DevWorkOrderMapper;
@@ -186,21 +193,25 @@ public class DevProductListServiceImpl implements IDevProductListService {
     @Override
     public int deleteDevProductListByIds(String ids) {
         Integer[] productIds = Convert.toIntArray(ids);
+        DevProductList product = null;
         for (Integer productId : productIds) {
+            product = devProductListMapper.selectDevProductListById(productId);
             // 校验是否有相关联的产品文件未删除
             List<FileSourceInfo> fileSourceInfos = fileSourceInfoMapper.selectFileSourceInfoBySaveIdAndComId(productId, ShiroUtils.getCompanyId());
             if (!StringUtils.isEmpty(fileSourceInfos)) {
-                throw new BusinessException("请先删除该产品关联文件");
+                throw new BusinessException("请先删除" + product.getProductCode() + "的关联文件");
             }
             // 校验是否有相关的客户关联信息
             List<ProductCustomer> productCustomers = productCustomerMapper.selectProductCustomerByProIdOrCusId(productId, null);
             if (!StringUtils.isEmpty(productCustomers)) {
-                throw new BusinessException("请先删除客户关联");
+                throw new BusinessException("请先删除" + product.getProductCode() + "的客户关联");
             }
-            // 校验是否存在库存记录
+            /**
+             * 查询对应产品是否存在库存记录，存在库存记录则不允许删除
+             */
             ProductStock productStock = productStockMapper.selectProductStockByProId(productId);
             if (!StringUtils.isNull(productStock)) {  // 存在库存记录
-                throw new BusinessException("存在库存记录不允许删除");
+                throw new BusinessException(product.getProductCode() + "存在库存记录不允许删除");
             }
         }
         return devProductListMapper.deleteDevProductListByIds(Convert.toStrArray(ids));
