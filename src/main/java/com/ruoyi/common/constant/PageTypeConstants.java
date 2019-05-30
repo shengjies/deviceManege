@@ -17,8 +17,8 @@ public class PageTypeConstants {
      */
     public static final int PAGE_TYPE_SCPH =3;
     /**
-     * 4、查看产品文件
+     * 4、图纸看板
      */
-    public static final int PAGE_TYOE_CPWJ = 4;
+    public static final int PAGE_TYPE_TZLB = 4;
 
 }

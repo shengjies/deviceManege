@@ -52,3 +52,12 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COMMENT = '内部调整明细表';
 
+
+
+# 2019-05-29  未执行
+INSERT INTO `devicemanage2`.`dev_page_layout` (`layout_type`, `layout_name`, `layout_status`, `create_date`, `layout_num`) VALUES ('4', '产品文件', '1', now(), '0');
+
+#2019-05-30
+ALTER TABLE `devicemanage2`.`dev_product_list`
+ADD INDEX `code_company` (`company_id` ASC, `product_code` ASC) VISIBLE;
+;

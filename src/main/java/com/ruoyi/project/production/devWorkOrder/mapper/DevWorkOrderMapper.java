@@ -181,4 +181,13 @@ public interface DevWorkOrderMapper {
      */
     @DataSource(DataSourceType.SLAVE)
     int editCompanyProductWorkOrderEcn(@Param("companyId")int companyId,@Param("productCode")String productCode);
+
+    /**
+     * 根据公司id产线id查询对应的数据
+     * @param companyId 公司id
+     * @param lineId 产线id
+     * @return
+     */
+    @DataSource(DataSourceType.SLAVE)
+    List<DevWorkOrder> selectWorkDataByCompanyIdAndLineId(@Param("companyId")int companyId,@Param("lineId")int lineId);
 }

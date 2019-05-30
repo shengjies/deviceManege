@@ -98,6 +98,8 @@
                 modalName: "硬件",
 				search: false,
 		        showExport: true,
+				sortName:'configDate',
+				sortOrder:'desc',
                 columns: [{
 		            checkbox: true
 		        },
@@ -136,11 +138,11 @@
 					title : '硬件名称',
 					sortable: true
 				},
-				{
-					field : 'deviceUploadTime', 
-					title : '上报时间',
-					sortable: true
-				},
+				// {
+				// 	field : 'deviceUploadTime',
+				// 	title : '上报时间',
+				// 	sortable: true
+				// },
 				{
 					field : 'companyId', 
 					title : '所属公司',

@@ -121,4 +121,12 @@ public interface IDevProductListService
 	 * @return 结果
 	 */
 	List<DevProductList> selectProNameAllByComId();
+
+	/**
+	 * 根据公司id和产品编号查询对应的产品信息
+	 * @param companyId 公司id
+	 * @param code 产品编号
+	 * @return
+	 */
+	DevProductList selectProductByCompanyIdAndCode(int companyId,String code);
 }

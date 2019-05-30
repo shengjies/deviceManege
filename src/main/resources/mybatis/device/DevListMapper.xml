@@ -169,6 +169,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!--用户添加硬件信息-->
     <update id="addSave">
-        update dev_list set company_id = #{companyId},device_name=#{deviceName},remark=#{remark}  where device_id = #{deviceId};
+        update dev_list set company_id = #{companyId},device_name=#{deviceName},remark=#{remark},config_date=now()  where device_id = #{deviceId};
     </update>
 </mapper>

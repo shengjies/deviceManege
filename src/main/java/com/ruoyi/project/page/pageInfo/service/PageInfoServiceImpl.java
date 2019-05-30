@@ -203,7 +203,7 @@ public class PageInfoServiceImpl implements IPageInfoService
 				pageInfoConfigMapper.insertPageInfoConfig(config);
 			}
 		}else if(pageInfo.getConfigs() != null && (pageInfo.getPageType() == PageTypeConstants.PAGE_TYPE_LB ||
-				pageInfo.getPageType() == PageTypeConstants.PAGE_TYPE_SCPH || pageInfo.getPageType() == PageTypeConstants.PAGE_TYOE_CPWJ) ){//轮播布局 或者 平衡布局
+				pageInfo.getPageType() == PageTypeConstants.PAGE_TYPE_SCPH || pageInfo.getPageType() == PageTypeConstants.PAGE_TYPE_TZLB) ){//轮播布局 或者 平衡布局
 			for (PageInfoConfig config : pageInfo.getConfigs()) {
 				config.setPId(pageInfo.getId());
 				config.setCreateTime(new Date());
@@ -320,13 +320,22 @@ public class PageInfoServiceImpl implements IPageInfoService
 				}
 			}
 			info.setConfigs(configs);
+			if(info.getPageType() == PageTypeConstants.PAGE_TYPE_TZLB && configs != null && configs.size() >0 ){
+				//查询产线信息
+				ProductionLine line = productionLineMapper.selectProductionLineById(configs.get(0).getLineId());
+				if(line != null){
+					configs.get(0).setLine(line);
+					//拿取对应的产线所以未完成和正在进行的工单信息
+					List<DevWorkOrder> workOrders = devWorkOrderMapper.selectWorkDataByCompanyIdAndLineId(info.getCompanyId(),line.getId());
+					info.setWorkOrder(workOrders);
+				}
+			}
 		}
 		return info;
 	}
 
 	/**
 	 * 查询折线图的24小时数据
-	 * @param jsonObject
 	 * @param order
 	 * @param companyId
 	 * @param lineId

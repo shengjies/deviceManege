@@ -4,6 +4,7 @@ import com.ruoyi.framework.aspectj.lang.annotation.Excel;
 import com.ruoyi.project.device.devCompany.domain.DevCompany;
 import com.ruoyi.project.page.layout.domain.Layout;
 import com.ruoyi.project.page.pageInfoConfig.domain.PageInfoConfig;
+import com.ruoyi.project.production.devWorkOrder.domain.DevWorkOrder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.framework.web.domain.BaseEntity;
@@ -60,6 +61,9 @@ public class PageInfo extends BaseEntity
 	private DevCompany devCompany;
 	/** 专用于判断对应轮播页面是否配置其他页面 */
 	private boolean exist = false;
+
+	/** 对应产线所以未完成和正在进行的工单 */
+	private List<DevWorkOrder> workOrder;
 
 	public void setId(Integer id) 
 	{
@@ -198,6 +202,14 @@ public class PageInfo extends BaseEntity
 
 	public void setPagePwd(String pagePwd) {
 		this.pagePwd = pagePwd;
+	}
+
+	public List<DevWorkOrder> getWorkOrder() {
+		return workOrder;
+	}
+
+	public void setWorkOrder(List<DevWorkOrder> workOrder) {
+		this.workOrder = workOrder;
 	}
 
 	@Override

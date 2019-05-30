@@ -141,4 +141,5 @@ public interface DevProductListMapper {
      */
     @DataSource(value = DataSourceType.SLAVE)
     List<DevProductList> selectProNameAllByComId(@Param("companyId") Integer companyId);
+
 }

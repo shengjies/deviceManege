@@ -93,7 +93,9 @@ public class ReportServiceImpl implements IReportService {
                List<DevWorkOrder> orders = devWorkOrderMapper.selectOrderByLineIsSubmit(user.getCompanyId(),productCode,
                        lineId,startTime+" 00:00:00",endTime+" 23:59:59");
                 for (DevWorkOrder order : orders) {
-                    order.setWorkingHour(order.getWorkingHour() + order.getManualTime());
+                    float wh = order.getWorkingHour() == null?0:order.getWorkingHour();
+                    float mh = order.getManualTime()==null?0:order.getManualTime();
+                    order.setWorkingHour( wh+mh );
                     sb.append(order.getId());
                     sb.append(",");
                     totalActualNum += order.getActualWarehouseNum() ==null?0:order.getActualWarehouseNum();
@@ -121,9 +123,11 @@ public class ReportServiceImpl implements IReportService {
                     }
                     //达成率
                     order.setReachRate(0F);
-                    if(order.getCumulativeNumber() != null ){
+                    if(order.getCumulativeNumber() != null && order.getProductStandardHour() != null){
                         //计算分母
-                      float total =  order.getProductStandardHour()*(order.getWorkingHour() + order.getOvertimeHour());
+                        float w = order.getWorkingHour()==null?0:order.getWorkingHour();
+                        float o =  order.getOvertimeHour()==null?0:order.getOvertimeHour();
+                      float total =  order.getProductStandardHour()*(w +o);
                         order.setReachRate(total==0?0:getFloat3(((float)order.getCumulativeNumber()/total))*100);
                     }
                     reachRateNum+=order.getReachRate();

@@ -107,6 +107,7 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
                 map.put("code",3);//硬件编码不存在
                 map.put("status",0);//没有正在进行的工单
                 map.put("num",0);//没有正在进行的工单
+                map.put("workCode",null);//工单编号为空
                 return  map;
             }
             //查询对应硬件产线配置信息
@@ -115,6 +116,7 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
                 map.put("code",4);//硬件未配置产线
                 map.put("status",0);//没有正在进行的工单
                 map.put("num",0);//没有正在进行的工单
+                map.put("workCode",null);//工单编号为空
                 return  map;
             }
             ApiWorkForm workForm = findLineAndWork(devList,devIo);
@@ -122,23 +124,27 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
                 map.put("code",2);//硬件为归属公司或者硬件未配置产线
                 map.put("status",0);//没有正在进行的工单
                 map.put("num",0);//没有正在进行的工单
+                map.put("workCode",null);//工单编号为空
                 return map;
             }
             map.put("code",1);//成功
             map.put("status",0);//没有正在进行的工单
             map.put("num",0);//没有正在进行的工单
+            map.put("workCode",null);//工单编号为空
             //查询对应工单的累计产量
             DevWorkData workData = devWorkDataMapper.selectWorkDataByCompanyLineWorkDev(workForm.getCompanyId(),workForm.getLineId(),
                     workForm.getWorkId(),devList.getId(),devIo.getId());
             if(workData != null && workData.getCumulativeNum() != null){
                 map.put("num",workData.getCumulativeNum());//没有正在进行的工单
                 map.put("status",1);//工单正在进行
+                map.put("workCode",workForm.getWorkCode());//工单编号为空
             }
             return map;
         }catch (Exception e){
             map.put("code",0);//异常错误
             map.put("status",0);//没有正在进行的工单
             map.put("num",0);//没有正在进行的工单
+            map.put("workCode",null);//工单编号为空
         }
         return map;
     }

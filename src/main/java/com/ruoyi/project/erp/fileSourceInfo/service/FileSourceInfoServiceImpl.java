@@ -39,9 +39,11 @@ public class FileSourceInfoServiceImpl implements IFileSourceInfoService
 	@DataSource(DataSourceType.ERP)
 	public List<FileSourceInfo> selectFileSourceInfoList(FileSourceInfo fileSourceInfo)
 	{
-		User user = ShiroUtils.getSysUser();
-		if(user == null)return Collections.emptyList();
-		fileSourceInfo.setCompanyId(user.getCompanyId());
+		if(fileSourceInfo.getCompanyId() == null) {
+			User user = ShiroUtils.getSysUser();
+			if (user == null) return Collections.emptyList();
+			fileSourceInfo.setCompanyId(user.getCompanyId());
+		}
 	    return fileSourceInfoMapper.selectFileSourceInfoList(fileSourceInfo);
 	}
 	
