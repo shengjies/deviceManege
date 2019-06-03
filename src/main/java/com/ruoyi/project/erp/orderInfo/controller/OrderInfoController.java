@@ -176,4 +176,15 @@ public class OrderInfoController extends BaseController
 			return error(e.getMessage());
 		}
 	}
+
+	/**
+	 * 校验订单号的唯一性
+	 * @param orderCode 订单号
+	 * @return 结果
+	 */
+	@PostMapping("/checkOrder")
+	@ResponseBody
+	public String checkOrder(String orderCode){
+		return orderInfoService.selectOrderInfoByCode(orderCode);
+	}
 }

@@ -220,4 +220,15 @@ public class StockConstants {
      */
     public final static Integer ORDER_STATUS_FOUR = 4;
 
+    /**
+     * 订单编号 是否唯一的返回结果 0
+     * 0、唯一 ；1、存在记录不唯一
+     */
+    public final static String ORDERCODE_UNIQUE = "0";
+    /**
+     * 订单编号 是否唯一的返回结果 1
+     * 0、唯一 ；1、存在记录不唯一
+     */
+    public final static String ORDERCODE_NOT_UNIQUE = "1";
+
 }

@@ -200,4 +200,18 @@ public class OrderInfoServiceImpl implements IOrderInfoService
 		}
 		return orderInfoMapper.updateOrderInfo(orderInfo);
 	}
+
+	/**
+	 * 通过订单编号查询订单信息
+	 * @param orderCode
+	 * @return
+	 */
+	@Override
+	public String selectOrderInfoByCode(String orderCode) {
+		OrderInfo orderInfo = orderInfoMapper.selectOrderInfoListByOrderCode(ShiroUtils.getCompanyId(), orderCode);
+		if (!StringUtils.isNull(orderInfo)) {
+		    return StockConstants.ORDERCODE_NOT_UNIQUE;
+		}
+		return StockConstants.ORDERCODE_UNIQUE;
+	}
 }

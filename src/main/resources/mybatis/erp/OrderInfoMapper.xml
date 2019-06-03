@@ -135,7 +135,7 @@
 
     <select id="selectOrderInfoListByOrderCode" resultMap="OrderInfoResult">
         <include refid="selectOrderInfoVo"/>
-        where company_id = #{companyId} and order_code = #{orderCode}
+        where company_id = #{companyId} and order_code = #{orderCode} and order_status in (1,2,3);
     </select>
 
     <!--产品退货查询订单以及订单明细-->

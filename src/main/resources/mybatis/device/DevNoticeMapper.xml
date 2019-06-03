@@ -89,7 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!--查询对应公司的所有消息-->
     <select id="selectAllNotice" parameterType="Integer" resultMap="DevNoticeResult">
         <include refid="selectDevNoticeVo"/>
-        where company_id = #{companyId} and notice_status = 2;
+        where company_id = #{companyId} and notice_status = 2 order by create_time desc;
     </select>
     
 </mapper>

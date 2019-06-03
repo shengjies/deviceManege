@@ -132,6 +132,7 @@
 			}
 		}
 
+
 		/**
 		 * 添加产品
 		 */
@@ -243,6 +244,24 @@
 				$.modal.alertWarning("请选择客户")
 				return;
 			}
+			var orderCode = $("#orderCode").val();
+			var orderCodeUnique = true;
+            $.ajax({
+                type: 'POST',
+                url: '/erp/orderInfo/checkOrder',
+                data:{orderCode:orderCode},
+                async: false,  //同步请求，
+                cache: false, // 不使用缓存
+                success: function (result) {
+                    if (result == "1") { // 存在相同的编码
+                        orderCodeUnique = false;
+                    }
+                }
+            });
+            if (!orderCodeUnique) {
+                $.modal.alertWarning("存在相同的订单号，请重新输入");
+                return;
+            }
 			var deliverTime = $("#deliverTime").val();
 			if(!deliverTime){
 				$.modal.alertWarning("请选择交付日期")

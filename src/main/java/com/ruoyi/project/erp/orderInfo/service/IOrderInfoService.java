@@ -71,4 +71,11 @@ public interface IOrderInfoService
 	 * @return 结果
 	 */
     int closeOrderInfo(OrderInfo orderInfo);
+
+	/**
+	 * 通过订单编号查询订单信息
+	 * @param orderCode
+	 * @return 结果
+	 */
+	String selectOrderInfoByCode(String orderCode);
 }
