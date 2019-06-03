@@ -55,9 +55,14 @@ COMMENT = '内部调整明细表';
 
 
 # 2019-05-29  未执行
-INSERT INTO `devicemanage2`.`dev_page_layout` (`layout_type`, `layout_name`, `layout_status`, `create_date`, `layout_num`) VALUES ('4', '产品文件', '1', now(), '0');
+INSERT INTO `devicemanage2`.`dev_page_layout` (`layout_type`, `layout_name`, `layout_status`, `create_date`, `layout_num`) VALUES ('4', '图纸看板', '1', now(), '0');
 
 #2019-05-30
 ALTER TABLE `devicemanage2`.`dev_product_list`
 ADD INDEX `code_company` (`company_id` ASC, `product_code` ASC) VISIBLE;
 ;
+
+
+#2019-06-03
+ALTER TABLE `devicemanage2`.`dev_work_order`
+ADD COLUMN `sign` INT NULL DEFAULT 1 AFTER `ecn_text`;

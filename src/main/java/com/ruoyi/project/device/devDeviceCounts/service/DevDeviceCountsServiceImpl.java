@@ -129,23 +129,23 @@ public class DevDeviceCountsServiceImpl implements IDevDeviceCountsService
 				devDataLog.setDevId(devList.getId());
 				devDataLog.setDelData(0);
 				//查询对应的顺序的IO口
-				DevIo devIo = devIoMapper.selectDevIoByDevIdAndOrder(devList.getId(),j);
+				DevIo io = devIoMapper.selectDevIoByDevIdAndOrder(devList.getId(),j);
 				devDataLog.setIoOrder(j);
-				if(devIo != null){
-					devDataLog.setIoId(devIo.getId());
-					if(devIo.getLineId() >0){
+				if(io != null){
+					devDataLog.setIoId(io.getId());
+					if(io.getLineId() >0){
 						//查询对应的产线是否存在
-						ProductionLine line = productionLineMapper.selectProductionLineById(devIo.getLineId());
+						ProductionLine line = productionLineMapper.selectProductionLineById(io.getLineId());
 						if(line != null)devDataLog.setLineId(line.getId());
 						//查询对应产线正在工作的工单
-						DevWorkOrder workOrder = devWorkOrderMapper.selectWorkByCompandAndLine(devList.getCompanyId(),devIo.getLineId());
+						DevWorkOrder workOrder = devWorkOrderMapper.selectWorkByCompandAndLine(devList.getCompanyId(),io.getLineId());
 						if(workOrder != null && workOrder.getOperationStatus() == WorkConstants.OPERATION_STATUS_STARTING){
 							devDataLog.setWorkId(workOrder.getId());
 							//对相关数据进行记录
-							DevWorkData workData = devWorkDataMapper.selectWorkDataByCompanyLineWorkDev(devList.getCompanyId(),devIo.getLineId(),workOrder.getId(),
-									devList.getId(),devIo.getId());
+							DevWorkData workData = devWorkDataMapper.selectWorkDataByCompanyLineWorkDev(devList.getCompanyId(),io.getLineId(),workOrder.getId(),
+									devList.getId(),io.getId());
 							if(workData != null){
-								if(devIo.getIsSign() == 1){
+								if(io.getIsSign() == 1){
 									workData.setIoSign(1);//标记数据 为报表数据
 								}else{
 									workData.setIoSign(0);
@@ -168,11 +168,11 @@ public class DevDeviceCountsServiceImpl implements IDevDeviceCountsService
 								DevWorkData data = new DevWorkData();
 								data.setCompanyId(devList.getCompanyId());
 								data.setCreateTime(new Date());
-								data.setLineId(devIo.getLineId());
+								data.setLineId(io.getLineId());
 								data.setDevId(devList.getId());
 								data.setDevName(devList.getDeviceName());
-								data.setIoId(devIo.getId());
-								data.setIoName(devIo.getIoName());
+								data.setIoId(io.getId());
+								data.setIoName(io.getIoName());
 								data.setWorkId(workOrder.getId());
 								data.setDataSign(0);
 								data.setInitialData(val>0?val-1:val);

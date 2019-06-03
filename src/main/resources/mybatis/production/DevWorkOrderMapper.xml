@@ -43,11 +43,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="orderCode"    column="order_code"    />
         <result property="ecnStatus"    column="ecn_status"    />
         <result property="ecnText"    column="ecn_text"    />
+        <result property="sign"    column="sign"    />
     </resultMap>
     <sql id="selectDevWorkOrderVo">
         select id, workorder_name, workorder_number, company_id, line_id, product_name, product_code, product_number, production_start, production_end, start_time, end_time, product_standard_hour, create_time, create_by, update_time, device_liable, update_by, people_number, working_hour, overtime_hour,
         overtime_race, manual_time, workorder_status, operation_status, init_date, work_sign, scrap_num, actual_warehouse_num,
-        cumulative_number,direct_pass_rate,paramConfig,bad_number,product_model,remark,order_code,ecn_status,ecn_text from dev_work_order
+        cumulative_number,direct_pass_rate,paramConfig,bad_number,product_model,remark,order_code,ecn_status,ecn_text,sign from dev_work_order
     </sql>
 
     <select id="selectDevWorkOrderList" parameterType="DevWorkOrder" resultMap="DevWorkOrderResult">
@@ -257,6 +258,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           and workorder_status = 1  limit 1;
     </select>
 
+    <!--查询对应公司对应产线正在进行中的工单-->
+    <select id="selectWorkByCompandAndLine2" resultMap="DevWorkOrderResult">
+         SELECT * FROM dev_work_order where company_id = #{compand_id} and line_id = #{line_id}
+          and workorder_status = 1 and operation_status = 1  limit 1;
+    </select>
+
     <!--查询当天排版计划-->
     <select id="selectDayWorkOrder" resultType="java.lang.String">
       SELECT workorder_number FROM dev_work_order where company_id= #{company_id} and line_id = #{line_id} and production_start = date_format(now(),'%y%m%d');
@@ -322,4 +329,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      SELECT * FROM dev_work_order where company_id = #{companyId}
      and  line_id = #{lineId} and workorder_status in (0,1) order by workorder_status desc;
     </select>
+
+    <!--查询最近完成工单信息-->
+    <select id="selectLatelyCompleteWork" resultMap="DevWorkOrderResult">
+      SELECT * FROM dev_work_order where company_id = #{compand_id} and line_id = #{line_id}
+      and workorder_status = 2 order by end_time desc limit 1;
+    </select>
+
+    <!--修改已经完成工单的标记-->
+    <update id="editLatelyCompleteWorkSign">
+        update dev_work_order set sign = 0 where id = #{workid} ;
+    </update>
 </mapper>

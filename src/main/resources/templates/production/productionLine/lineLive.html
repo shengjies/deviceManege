@@ -420,6 +420,7 @@
                 if(item.workorderStatus == 0){
                     $("#line-live-work-gdzt").text("未进行")
                     $("#action-btn-start").css('display','inline-block');
+                    $("#action-btn-end").css('display','inline-block');
                     $("#action-btn-stop").css('display','none');
                     $("#action-btn-exce").css('display','none');
                 }else if(item.workorderStatus == 1){
@@ -482,6 +483,9 @@
         }
         $("#bootstrap-table").bootstrapTable('refresh', params);
     }
+    $(function () {
+        search1();
+    })
     function search1() {
         var params = $("#bootstrap-table1").bootstrapTable('getOptions');
         params.queryParams = function (p) {

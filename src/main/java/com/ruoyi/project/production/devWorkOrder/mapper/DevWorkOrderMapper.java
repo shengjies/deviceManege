@@ -84,6 +84,9 @@ public interface DevWorkOrderMapper {
     @DataSource(DataSourceType.SLAVE)
     DevWorkOrder selectWorkByCompandAndLine(@Param("compand_id") int compand_id, @Param("line_id") int line_id);
 
+    @DataSource(DataSourceType.SLAVE)
+    DevWorkOrder selectWorkByCompandAndLine2(@Param("compand_id") int compand_id, @Param("line_id") int line_id);
+
     /**
      * 查询当天对应公司对应产线的工单计划的工单编号
      *
@@ -190,4 +193,21 @@ public interface DevWorkOrderMapper {
      */
     @DataSource(DataSourceType.SLAVE)
     List<DevWorkOrder> selectWorkDataByCompanyIdAndLineId(@Param("companyId")int companyId,@Param("lineId")int lineId);
+
+    /**
+     * 查询最近完成工单信息
+     * @param compand_id 公司id
+     * @param line_id 产线id
+     * @return
+     */
+    @DataSource(DataSourceType.SLAVE)
+    DevWorkOrder selectLatelyCompleteWork(@Param("compand_id") int compand_id, @Param("line_id") int line_id);
+
+    /**
+     * 修改已经完成的工单标记
+     * @param workid
+     * @return
+     */
+    @DataSource(DataSourceType.SLAVE)
+    int editLatelyCompleteWorkSign(@Param("workid")int workid);
 }

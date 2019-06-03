@@ -70,19 +70,19 @@
 													<div class="panel-body">
 														<div class="form-group"  >
 															<label>生产线</label>
-															<select  class="form-control m-b" name="line">
+															<select  class="form-control" name="line" >
 																<option th:each="line : ${init['line']}" th:text="${line.lineName}" th:value="${line.id}"></option>
 															</select>
 														</div>
 														<div class="form-group">
 															<label>采样数据名称</label>
-															<select  class="form-control m-b" name="io">
+															<select  class="form-control" name="io">
 																<option th:each="ios : ${init['ios']}" th:text="${ios.remark + '-' + ios.ioName}" th:value="${ios.id}"></option>
 															</select>
 														</div>
 														<div class="form-group">
 															<label>采样数据名称</label>
-															<select  class="form-control m-b" name="io1">
+															<select  class="form-control" name="io1">
 																<option th:each="ios : ${init['ios']}" th:text="${ios.remark + '-' + ios.ioName}" th:value="${ios.id}"></option>
 															</select>
 														</div>
@@ -231,7 +231,32 @@
 	</div>
 	<div class="cropped"></div>
 </div>
-<div th:include="include::footer"></div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+<!-- bootstrap-table 表格插件 -->
+<script th:src="@{/ajax/libs/bootstrap-table/bootstrap-table.min.js}"></script>
+<script th:src="@{/ajax/libs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>
+<script th:src="@{/ajax/libs/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js}"></script>
+<script th:src="@{/ajax/libs/bootstrap-table/extensions/toolbar/bootstrap-table-toolbar.min.js}"></script>
+<script th:src="@{/ajax/libs/bootstrap-table/extensions/columns/bootstrap-table-fixed-columns.js}"></script>
+<!-- jquery-validate 表单验证插件 -->
+<script th:src="@{/ajax/libs/validate/jquery.validate.min.js}"></script>
+<script th:src="@{/ajax/libs/validate/messages_zh.min.js}"></script>
+<script th:src="@{/ajax/libs/validate/jquery.validate.extend.js}"></script>
+<!-- jquery-validate 表单树插件 -->
+<script th:src="@{/ajax/libs/bootstrap-treetable/bootstrap-treetable.js}"></script>
+<!-- jquery-export 表格导出插件 -->
+<script th:src="@{/ajax/libs/bootstrap-table/extensions/export/bootstrap-table-export.js}"></script>
+<script th:src="@{/ajax/libs/bootstrap-table/extensions/export/tableExport.js}"></script>
+<!-- 遮罩层 -->
+<script th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
+<script th:src="@{/ajax/libs/iCheck/icheck.min.js}"></script>
+<script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+<script th:src="@{/ajax/libs/layui/layui.js}"></script>
+<script th:src="@{/ruoyi/js/common.js?v=3.2.0}"></script>
+<script th:src="@{/ruoyi/js/ry-ui.js?v=3.2.0}"></script>
+<script th:inline="javascript"> var ctx = [[@{/}]]; </script>
 <script th:src="@{/ajax/libs/cropbox/cropbox.js}"></script>
 <script type="text/javascript">
 	var cropper;
@@ -308,7 +333,6 @@
 			$("#layout_title").text(t);
 		})
 	})
-
 	$(document).on("change","select[name='line']",function () {
 		var line_id = $(this).find("option:selected").val();
 		var than = this;

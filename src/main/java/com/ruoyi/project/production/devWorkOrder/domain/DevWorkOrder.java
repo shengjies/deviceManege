@@ -175,6 +175,10 @@ public class DevWorkOrder extends BaseEntity {
     private Integer ecnStatus;
 
     private String ecnText;
+    /**
+     * 用于标记完成后统计第一次上报数据，默认是1，当统计完成后修改为 0
+     */
+    private Integer sign;
 
     public Integer getProductId() {
         return productId;
@@ -642,6 +646,14 @@ public class DevWorkOrder extends BaseEntity {
         this.ecnLog = ecnLog;
     }
 
+    public Integer getSign() {
+        return sign;
+    }
+
+    public void setSign(Integer sign) {
+        this.sign = sign;
+    }
+
     @Override
     public String toString() {
         return "DevWorkOrder{" +
@@ -683,6 +695,7 @@ public class DevWorkOrder extends BaseEntity {
                 ", orderCode='" + orderCode + '\'' +
                 ", ecnStatus=" + ecnStatus +
                 ", ecnText='" + ecnText + '\'' +
+                ", sign=" + sign +
                 ", cumulativeNumber=" + cumulativeNumber +
                 ", directPassRate=" + directPassRate +
                 ", paramConfig='" + paramConfig + '\'' +

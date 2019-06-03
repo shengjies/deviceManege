@@ -16,6 +16,7 @@ public class ApiWorkForm {
     private Integer workorderStatus; // 工单生产状态
     private String productCode;//产品编码
     private String productName;//产品名称
+    private int op =0;
 
     public Integer getWorkorderStatus() {
         return workorderStatus;
@@ -111,5 +112,15 @@ public class ApiWorkForm {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public int getOp() {
+        return op;
+    }
+
+    public void setOp(int op) {
+        if(op == 1 || op == 2) {
+            this.op = op;
+        }
     }
 }

@@ -96,6 +96,16 @@ public class DevWorkOrderController extends BaseController {
     }
 
     /**
+     * 获取工单编号
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/getWorkOrderCode")
+    public String getWorkOrderCode(){
+        return CodeUtils.getWorkOrderCode();
+    }
+
+    /**
      * 新增保存工单
      */
     @RequiresPermissions("device:devWorkOrder:add")

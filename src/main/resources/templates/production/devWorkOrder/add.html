@@ -274,6 +274,9 @@
                                 $("#orderCode").select2().val("NaN").trigger("change");
                                 $("#lineId").select2().val("").trigger("change");
                                 $("#ecnStatus").select2().val("0").trigger("change");
+                                $.post(prefix+"/getWorkOrderCode",function (data) {
+                                    $("#workorderNumber").val(data);
+                                })
                             }else{
                                 $.modal.alertError(result.msg);
                             }
