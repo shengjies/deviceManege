@@ -24,7 +24,12 @@
                         </li>
 
                         <li>
-                            操作者名称：<input type="text" name="createName"/>
+                            操作者名称：
+                            <select style="width: 150px" id="createName" name="createName"
+                                    th:with="user=${@user.selectComAllUser()}">
+                                <option value="">全部</option>
+                                <option th:each="u : ${user}" th:text="${u.userName}" th:value="${u.userName}"></option>
+                            </select>
                         </li>
 
                         <li class="select-time">

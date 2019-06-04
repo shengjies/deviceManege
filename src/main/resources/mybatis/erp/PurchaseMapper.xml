@@ -37,10 +37,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectPurchaseList" parameterType="Purchase" resultMap="PurchaseResult">
         <include refid="selectPurchaseVo"/>
         <where>  company_id = #{companyId}
-             <if test="purchaseCode != null  and purchaseCode != '' "> and purchase_code like concat(#{purchaseCode},'%')</if>
+             <if test="purchaseCode != null  and purchaseCode != '' "> and purchase_code like concat('%',#{purchaseCode},'%')</if>
              <if test="supplierId != null and supplierId > 0 "> and supplier_id = #{supplierId}</if>
-             <if test="liaisonMan != null  and liaisonMan != '' "> and liaison_man like concat(#{liaisonMan},'%')</if>
-             <if test="phone != null  and phone != '' "> and phone  like concat(#{phone},'%')</if>
+             <if test="liaisonMan != null  and liaisonMan != '' "> and liaison_man like concat('%',#{liaisonMan},'%')</if>
+             <if test="phone != null  and phone != '' "> and phone  like concat('%',#{phone},'%')</if>
              <if test="purchaseStatut != null and purchaseStatut > 0 "> and purchase_statut = #{purchaseStatut}</if>
             <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
                 AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')

@@ -102,6 +102,7 @@
 	var removeFlag = [[${@permission.hasPermi('device:devProductList:remove')}]];
     var viewFileFlag = [[${@permission.hasPermi('erp:fileSourceInfo:list')}]];
     var ecnFlag = [[${@permission.hasPermi('production:ecnLog:list')}]];
+    var productCustomer = [[${@permission.hasPermi('erp:productCustomer:list')}]];
 	var prefix = ctx + "product";
 
 	$(function() {
@@ -174,9 +175,9 @@
                             actions.push('<a class="btn btn-default btn-xs ' + viewFileFlag + '" href="javascript:void(0)" onclick="viewFile(\'' + row.id + '\')"><i class="fa fa-eye"></i>上传文件</a> ');
 						}
                         if (row.productCustomer != null ) { // 关联过客户信息
-                            actions.push('<a class="btn btn-primary btn-xs" href="javascript:void(0)" onclick="connectCustomer(\'' + row.id + '\')"><i></i>关联客户</a> ');
+                            actions.push('<a class="btn btn-primary btn-xs ' + productCustomer + '" href="javascript:void(0)" onclick="connectCustomer(\'' + row.id + '\')"><i></i>关联客户</a> ');
                         } else { // 未关联过客户信息或者已经删除
-                            actions.push('<a class="btn btn-default btn-xs" href="javascript:void(0)" onclick="connectCustomer(\'' + row.id + '\')"><i></i>关联客户</a> ');
+                            actions.push('<a class="btn btn-default btn-xs '+ productCustomer +'" href="javascript:void(0)" onclick="connectCustomer(\'' + row.id + '\')"><i></i>关联客户</a> ');
 						}
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i></i>删除</a>');
                         return actions.join('');
