@@ -1,22 +1,25 @@
 package com.ruoyi.framework.config;
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.sql.DataSource;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.ruoyi.framework.aspectj.lang.enums.DataSourceType;
 import com.ruoyi.framework.config.properties.DruidProperties;
 import com.ruoyi.framework.datasource.DynamicDataSource;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * druid 配置多数据源
- * 
+ *
  * @author ruoyi
  */
 @Configuration
@@ -57,5 +60,10 @@ public class DruidConfig
         targetDataSources.put(DataSourceType.SLAVE.name(), slaveDataSource);
         targetDataSources.put(DataSourceType.ERP.name(), erpDataSource);
         return new DynamicDataSource(masterDataSource, targetDataSources);
+    }
+
+    @Bean
+    public PlatformTransactionManager txManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 }

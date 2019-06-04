@@ -23,7 +23,7 @@ public class DynamicDataSourceContextHolder
      */
     public static void setDateSoureType(String dsType)
     {
-        log.info("切换到{}数据源", dsType);
+        //log.info("切换到{}数据源", dsType);
         CONTEXT_HOLDER.set(dsType);
     }
 

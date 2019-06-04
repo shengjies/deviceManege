@@ -30,7 +30,7 @@ server:
 # 日志配置
 logging:
   level:
-    com.ruoyi: debug
+#    com.ruoyi: debug
     org.springframework: WARN
     org.spring.springboot.dao: debug
 
