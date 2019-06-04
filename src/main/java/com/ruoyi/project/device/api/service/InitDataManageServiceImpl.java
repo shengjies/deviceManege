@@ -91,9 +91,13 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
                 map.put("data",null);
                 return map;
             }
+            if(workForm.getWorkorderStatus() == null){
+                workForm.setWorkorderStatus(0);
+            }
             map.put("code",1);
             map.put("data",workForm);
         }catch (Exception e){
+            e.printStackTrace();
                map.put("code",0);
                map.put("data",null);
         }
@@ -187,7 +191,7 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
                                         devWorkOrderMapper.updateDevWorkOrder(workOrder);
                                     }
                                     //添加日志
-                                    if(workData != null  && workOrder.getOperationStatus() == WorkConstants.OPERATION_STATUS_STARTING && devDataLog.getLineId() != null && devDataLog.getWorkId() != null){
+                                    if(workData != null  && devDataLog.getLineId() != null && devDataLog.getWorkId() != null){
                                         //查询对应日志上传数据数据
                                         DevDataLog log = devDataLogMapper.selectLineWorkDevIo(devDataLog.getLineId(),devDataLog.getWorkId(),devDataLog.getDevId(),devDataLog.getIoId());
                                         if(log != null){
@@ -209,7 +213,7 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
             }
 
             ApiWorkForm workForm = findLineAndWork(devList,devIo);
-            if(workForm == null || StringUtils.isEmpty(workForm.getWorkCode())){
+            if(workForm == null){
                 map.put("code",2);//硬件为归属公司或者硬件未配置产线
                 map.put("status",0);//没有正在进行的工单
                 map.put("num",0);//没有正在进行的工单
@@ -217,19 +221,13 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
                 return map;
             }
             map.put("code",1);//成功
-            map.put("status",0);//没有正在进行的工单
-            map.put("num",0);//没有正在进行的工单
-            map.put("workCode",null);//工单编号为空
-            //查询对应工单的累计产量
-            DevWorkData workData = devWorkDataMapper.selectWorkDataByCompanyLineWorkDev(workForm.getCompanyId(),workForm.getLineId(),
-                    workForm.getWorkId(),devList.getId(),devIo.getId());
-            if(workData != null && workData.getCumulativeNum() != null){
-                map.put("num",workData.getCumulativeNum());//没有正在进行的工单
-                map.put("status",workForm.getOp());//工单正在进行
-                map.put("workCode",workForm.getWorkCode());//工单编号为空
-            }
+            map.put("num",workForm.getActualNum());//没有正在进行的工单
+            map.put("status",workForm.getOp());//工单正在进行
+            map.put("workCode",workForm.getWorkCode());//工单编号为空
+
             return map;
         }catch (Exception e){
+            e.printStackTrace();
             map.put("code",0);//异常错误
             map.put("status",0);//没有正在进行的工单
             map.put("num",0);//没有正在进行的工单
@@ -323,11 +321,11 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
             workForm.setWorkNumber(workOrder.getProductNumber());
             workForm.setWorkorderStatus(workOrder.getWorkorderStatus()); // 生产状态
             workForm.setOp(workOrder.getOperationStatus());
-        }
-        // 查询对应工单累计生产产量信息
-        DevWorkData workData = devWorkDataMapper.selectWorkDataByIosign(devCompany.getCompanyId(),workOrder.getId(),line.getId(),devList.getId());
-        if (workData != null) {
-            workForm.setActualNum(workData.getCumulativeNum());
+            // 查询对应工单累计生产产量信息
+            DevWorkData workData = devWorkDataMapper.selectWorkDataByIosign(devCompany.getCompanyId(),workOrder.getId(),line.getId(),devList.getId());
+            if (workData != null) {
+                workForm.setActualNum(workData.getCumulativeNum());
+            }
         }
         return workForm;
     }

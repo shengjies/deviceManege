@@ -67,6 +67,8 @@ ADD INDEX `code_company` (`company_id` ASC, `product_code` ASC) VISIBLE;
 ALTER TABLE `devicemanage2`.`dev_work_order`
 ADD COLUMN `sign` INT NULL DEFAULT 1 AFTER `ecn_text`;
 
+
+
 #2019-06-04 已执行
 ALTER TABLE `devicemanage2`.`dev_data_log`
 ADD INDEX `work_task` (`create_time` ASC, `io_id` ASC, `dev_id` ASC, `work_id` ASC, `line_id` ASC);
