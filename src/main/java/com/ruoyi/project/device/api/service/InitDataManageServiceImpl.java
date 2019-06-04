@@ -135,7 +135,7 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
                     devDataLog.setCompanyId(devList.getCompanyId());
                     devDataLog.setDataTotal(val);
                     devDataLog.setDevId(devList.getId());
-                    devDataLog.setDelData(0);
+                    devDataLog.setDelData(val);
                     //查询对应的顺序的IO口
                     DevIo io = devIoMapper.selectDevIoByDevIdAndOrder(devList.getId(),j);
                     devDataLog.setIoOrder(j);
