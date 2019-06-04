@@ -319,7 +319,7 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
             workForm.setProductCode(workOrder.getProductCode());//产品编码
             workForm.setProductName(workOrder.getProductName());//产品名称
             workForm.setWorkNumber(workOrder.getProductNumber());
-            workForm.setWorkorderStatus(workOrder.getWorkorderStatus()); // 生产状态
+            workForm.setWorkorderStatus(workOrder.getOperationStatus()); // 生产状态
             workForm.setOp(workOrder.getOperationStatus());
             // 查询对应工单累计生产产量信息
             DevWorkData workData = devWorkDataMapper.selectWorkDataByIosign(devCompany.getCompanyId(),workOrder.getId(),line.getId(),devList.getId());
