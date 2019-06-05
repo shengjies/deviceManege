@@ -1,5 +1,6 @@
 package com.ruoyi.project.erp.productOutStockDetails.service;
 
+import com.ruoyi.project.erp.productOutStock.domain.ProductOutStock;
 import com.ruoyi.project.erp.productOutStockDetails.domain.ProductOutStockDetails;
 
 import java.util.List;
@@ -26,6 +27,16 @@ public interface IProductOutStockDetailsService {
      * @return 产品出库清单集合
      */
     public List<ProductOutStockDetails> selectProductOutStockDetailsList(ProductOutStockDetails productOutStockDetails);
+
+    /**
+     * 分页查询产品出库详情打印信息
+     * @param outId 出库id
+     * @param pageNum 页数大小
+     * @param pageSize 页面大小
+     * @return
+     */
+    ProductOutStock selectDetailsDaYing(int outId, int pageNum, int pageSize);
+
 
     /**
      * 新增产品出库清单

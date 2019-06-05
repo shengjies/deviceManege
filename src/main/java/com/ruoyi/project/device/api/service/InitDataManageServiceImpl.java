@@ -173,9 +173,11 @@ public class InitDataManageServiceImpl implements IInitDataManageService {
                                     }
                                 }
                             }else if(workOrder == null){
+
                                 //查询最近完成工单信息
                                 workOrder = devWorkOrderMapper.selectLatelyCompleteWork(devList.getCompanyId(),io.getLineId());
                                 if(workOrder != null && workOrder.getSign() == 1){
+                                    devDataLog.setWorkId(workOrder.getId());
                                     //对相关数据进行记录
                                     DevWorkData workData = devWorkDataMapper.selectWorkDataByCompanyLineWorkDev(devList.getCompanyId(),io.getLineId(),workOrder.getId(),
                                             devList.getId(),io.getId());

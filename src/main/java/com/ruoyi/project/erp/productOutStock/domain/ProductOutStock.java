@@ -80,6 +80,9 @@ public class ProductOutStock extends BaseEntity {
     /**
      * 产品出库清单
      */
+
+    private int count;//用于统计总数
+
     private List<ProductOutStockDetails> productOutStockDetailsList;
 
     public String getDelFlag() {
@@ -200,6 +203,14 @@ public class ProductOutStock extends BaseEntity {
 
     public Date getCreateTime() {
         return createTime;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public String toString() {

@@ -157,9 +157,8 @@
 
     /** 产品出库单明细 */
     function details(id) {
-        var url = prefix+"/details/" + id;
-        $.modal.open("查看明细",url,1000,580);
-        // createMenuItem(prefix + "/details/" + id, "查看产品出库单详情")
+        var url = prefix+"/detailsTable?id="+id;
+        createMenuItem(url, "产品出库单详情")
     }
 
     /**

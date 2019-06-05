@@ -2,6 +2,8 @@ package com.ruoyi.project.erp.productOutStockDetails.controller;
 
 import java.util.List;
 
+import com.ruoyi.common.utils.security.ShiroUtils;
+import com.ruoyi.project.device.devCompany.service.IDevCompanyService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +27,13 @@ import com.ruoyi.common.utils.poi.ExcelUtil;
 @Controller
 @RequestMapping("/erp/productOutStockDetails")
 public class ProductOutStockDetailsController extends BaseController {
-    private String prefix = "erp/productOutStockDetails";
 
+
+    private String prefix = "erp/productOutStockDetails";
+    private String prefix2 = "erp/productOutStock";
+
+    @Autowired
+    private IDevCompanyService companyService;
     @Autowired
     private IProductOutStockDetailsService productOutStockDetailsService;
 
@@ -135,6 +142,24 @@ public class ProductOutStockDetailsController extends BaseController {
     public String productOutStockDetail(@PathVariable("productId") Integer productId, ModelMap mmap) {
         mmap.put("productId", productId);
         return prefix + "/productOutStockDetails";
+    }
+    /**
+     * 查询所有产品出库清单列表
+     */
+    @RequiresPermissions("erp:productOutStockDetails:list")
+    @PostMapping("/listDetail")
+    @ResponseBody
+    public TableDataInfo listDetail(ProductOutStockDetails productOutStockDetails) {
+        startPage();
+        return getDataTable(productOutStockDetailsService.selectProductOutStockDetailsList(productOutStockDetails));
+    }
+
+    @GetMapping("/listDetailInfo")
+    public String listDetailInfo(int id,int pageSize,int pageNumber,ModelMap mmap){
+        mmap.put("company",companyService.selectDevCompanyById(ShiroUtils.getCompanyId()));
+        mmap.put("productOutStock",productOutStockDetailsService.selectDetailsDaYing(id,pageNumber,pageSize));
+        mmap.put("pageNumber",pageNumber);
+        return prefix2+ "/details";
     }
 
 }

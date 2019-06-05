@@ -35,6 +35,23 @@ public interface ProductOutStockDetailsMapper {
     public List<ProductOutStockDetails> selectProductOutStockDetailsList(ProductOutStockDetails productOutStockDetails);
 
     /**
+     * 分页查询产品出库详情打印信息
+     * @param outId 出库id
+     * @param page 页数大小
+     * @param size 页面大小
+     * @return
+     */
+    @DataSource(value = DataSourceType.ERP)
+    List<ProductOutStockDetails> selectDetailsDaYing(@Param("outId")int outId,@Param("page")int page,@Param("size")int size);
+
+    /**
+     * 分页查询产品出库详情打印信息统计总数
+     * @param outId
+     * @return
+     */
+    int countSelectDetailsDaYing(@Param("outId")int outId);
+
+    /**
      * 新增产品出库清单
      *
      * @param productOutStockDetails 产品出库清单信息

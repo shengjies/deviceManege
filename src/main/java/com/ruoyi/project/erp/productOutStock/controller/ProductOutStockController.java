@@ -6,6 +6,7 @@ import java.util.List;
 import com.ruoyi.common.exception.BusinessException;
 import com.ruoyi.common.utils.security.ShiroUtils;
 import com.ruoyi.project.device.devCompany.service.IDevCompanyService;
+import com.ruoyi.project.erp.productOutStockDetails.domain.ProductOutStockDetails;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -150,5 +151,14 @@ public class ProductOutStockController extends BaseController {
         mmap.put("productOutStock", productOutStock);
         return prefix + "/details";
     }
+
+    /**************打印分页***************/
+
+    @GetMapping("/detailsTable")
+    public String detailsTable(int id,ModelMap mmap){
+        mmap.put("out", productOutStockService.selectInfoById(id));
+        return  prefix+ "/detailsTable";
+    }
+
 
 }

@@ -158,4 +158,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         AND date_format(b.create_time,'%y%m%d') &gt;= date_format(#{bTime},'%y%m%d')
          AND date_format(b.create_time,'%y%m%d') &lt;= date_format(#{eTime},'%y%m%d')
     </select>
+
+    <!--分页查询产品出库详情打印信息-->
+    <select id="selectDetailsDaYing" resultMap="ProductOutStockDetailsResult">
+       SELECT * FROM erpstock.tab_product_out_stock_details
+       where del_flag = 0 and out_id = #{outId} limit #{page},#{size}
+    </select>
+    <!--统计总数-->
+    <select id="countSelectDetailsDaYing" resultType="java.lang.Integer">
+         SELECT count(*) FROM erpstock.tab_product_out_stock_details
+       where del_flag = 0 and out_id = #{outId}
+    </select>
 </mapper>

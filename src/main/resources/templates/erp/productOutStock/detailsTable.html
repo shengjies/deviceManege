@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 select-table table-striped">
+            <div style="text-align: center;margin: 20px 0px;">
+                <span style="font-size: 28px;">产品出库详情</span><br/><br/>
+                发货单号:<span th:utext="${out != null?out.outCode:'--'}"></span>
+            </div>
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+            <div style="margin-top: 20px;text-align: center"><a
+                    class="btn btn-success btn-xl " href="#" onclick="dayingyulan()"><i class="fa fa-file-code-o"></i>打印预览</a></div>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+    var prefix = ctx + "erp/productOutStockDetails";
+    $(function () {
+        var options = {
+            url: prefix + "/listDetail?outId="+[[${out.id}]],
+            modalName: "产品出库清单",
+            search: false,
+            showExport: false,
+            showSearch: false,
+            showRefresh: false,
+            showColumns: false,
+            showToggle: false,
+            pageSize:6,
+            columns: [
+                {
+                    field : 'id',
+                    title : '编号',
+                    visible: true
+                },
+                {
+                    field: 'productCode',
+                    title: '产品编码',
+                },
+                {
+                    field: 'orderCode',
+                    title: '订单号',
+                    sortable: true,
+                    formatter:function (value) {
+                        if(value == -1){
+                            return"-";
+                        }
+                        return value;
+                    }
+                },
+                {
+                    field: 'productModel',
+                    title: '产品型号',
+                    sortable: true
+                },
+
+                {
+                    field: 'productName',
+                    title: '产品名称',
+                    sortable: true
+                },
+                {
+                    field: 'customerCode',
+                    title: '客户编码',
+                    sortable: true
+                },
+                {
+                    field: 'outNumber',
+                    title: '出库数量',
+                    sortable: true,
+                },
+                {
+                    field: '',
+                    title: '单位',
+                }
+            ]
+        };
+        $.table.init(options);
+
+    });
+
+    function submitHandler() {
+        $.modal.close();
+        window.parent.$.table.refresh();
+    }
+
+    function dayingyulan() {
+        var table = $('#bootstrap-table').bootstrapTable('getOptions');
+        var pageSize = table.pageSize;
+        var pageNumber = table.pageNumber;
+        var  outId = [[${out.id}]];
+        $.modal.open("打印预览",prefix+"/listDetailInfo?id="+outId+"&pageSize="+pageSize+"&pageNumber="+pageNumber,1200,670)
+    }
+</script>
+</body>
+</html>

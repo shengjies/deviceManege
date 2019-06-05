@@ -55,6 +55,29 @@ public class ProductOutStockDetailsServiceImpl implements IProductOutStockDetail
     }
 
     /**
+     * 分页查询产品出库详情打印信息
+     * @param outId 出库id
+     * @param pageNum 页数大小
+     * @param pageSize 页面大小
+     * @return
+     */
+    @Override
+    public ProductOutStock selectDetailsDaYing(int outId, int pageNum, int pageSize) {
+        //查询出库信息
+        ProductOutStock outStock = productOutStockMapper.selectProductOutStockById(outId);
+        if(outStock != null){
+            //分页查询详情
+            List<ProductOutStockDetails> details = productOutStockDetailsMapper.selectDetailsDaYing(outId,(pageNum -1)*pageSize,pageSize);
+            int count = productOutStockDetailsMapper.countSelectDetailsDaYing(outId);
+            outStock.setProductOutStockDetailsList(details);
+            if(count > 0 && details != null && details .size() > 0){
+            outStock.setCount(count % pageSize == 0?count/pageSize:count/pageSize + 1);
+            }
+        }
+        return outStock;
+    }
+
+    /**
      * 新增产品出库清单
      *
      * @param productOutStockDetails 产品出库清单信息

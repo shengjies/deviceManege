@@ -21,6 +21,13 @@ public interface IProductOutStockService {
     public ProductOutStock selectProductOutStockById(Integer id);
 
     /**
+     * 根据编号查询对应的产品出库信息，只查询简单数据
+     * @param id 编号
+     * @return
+     */
+    public ProductOutStock selectInfoById(Integer id);
+
+    /**
      * 查询产品出库列表
      *
      * @param productOutStock 产品出库信息

@@ -35,7 +35,7 @@ import java.util.List;
  * @author zqm
  * @date 2019-04-30
  */
-@Service
+@Service("pOut")
 public class ProductOutStockServiceImpl implements IProductOutStockService {
     @Autowired
     private ProductOutStockMapper productOutStockMapper; // 产品出库单数据层
@@ -73,6 +73,16 @@ public class ProductOutStockServiceImpl implements IProductOutStockService {
         }
         productOutStock.setProductOutStockDetailsList(productOutStockDetailsList);
         return productOutStock;
+    }
+
+    /**
+     * 根据编号查询对应的产品出库信息，只查询简单数据
+     * @param id 编号
+     * @return
+     */
+    @Override
+    public ProductOutStock selectInfoById(Integer id) {
+        return productOutStockMapper.selectProductOutStockById(id);
     }
 
     /**
@@ -251,4 +261,8 @@ public class ProductOutStockServiceImpl implements IProductOutStockService {
         return productOutStockMapper.deleteProductOutStockById(id);
     }
 
+
+    public Date getDate(){
+        return new Date();
+    }
 }
